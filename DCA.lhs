@@ -14,14 +14,10 @@ We assume that we are using the 2-signal model such that $\lambda=2$ for a syste
 
 > type E = Int
 
-each signal stream has it's own time data, but given that signals are already synchronised, shouldn't it be:
-
 > type S = Stream (Time, Double, Double) 
 
 > stime :: (Time, Double, Double)  -> Time
 > stime (t,_,_) = t
-
- type S = (Stream (Double, Time), Stream (Double, Time))
 
 > type A = Stream (E, Time)
 
@@ -30,14 +26,10 @@ each signal stream has it's own time data, but given that signals are already sy
 
 > type AnomalyScore = (E, Time)
 
-a list of anomaly scores is easier to implement; normally this should be of a fixed size with one field one for each element in E
-
 > type Theta = [AnomalyScore]
 > type Phi   = [((E,Time), Time)]
 
 > type Sigma = [(E, Time)]
-
-rethink what needs to be $\mathbb{R}$ and what needs to be $\mathbb{N}$?
 
 > type Omega = (Double, Double, Double)
 
@@ -75,8 +67,6 @@ Maybe we should rename N to Pop?
 
 > run :: (A,S) -> Phi
 > run (a,s) = process ((a,s,initPop),0)
-
-process' and updateS are currently a horrible mess. I will make them nicer later. especially the signal update :)
 
 > process :: (H,Int) -> Phi
 > process (h,i)
